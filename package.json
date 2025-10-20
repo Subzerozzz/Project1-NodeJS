@@ -3,6 +3,12 @@
   "packageManager": "yarn@4.4.1",
   "dependencies": {
     "express": "^5.1.0",
+    "pug": "^3.0.3"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.10"
+  },
+  "scripts": {
+    "dev": "nodemon index.js"
   }
 }
