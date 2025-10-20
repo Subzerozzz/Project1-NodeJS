@@ -1,0 +1,8 @@
+{
+  "name": "project-1",
+  "packageManager": "yarn@4.4.1",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
