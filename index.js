@@ -1,41 +1,33 @@
 const express = require("express");
 const path = require("path");
-const mongoose = require("mongoose");
 require("dotenv").config();
+const database = require("./config/database");
 
 const app = express();
 const port = 3000;
 
+const adminRoutes = require("./routes/admin/01_index.route");
+const clientRoutes = require("./routes/client/01_index.route");
+
+const variableConfig = require("./config/variable");
+
 //Kết nối tới DB
-mongoose.connect(process.env.DATABASE);
+database.connect();
+
+// Set template engine
+app.set("view engine", "pug");
 
 //Thiết lập views
 app.set("views", path.join(__dirname, "views"));
-// Set template engine
-app.set("view engine", "pug");
 
 // Thiết lập thư mục tĩnh
 app.use(express.static(path.join(__dirname, "public")));
 
-const Tour = require("./models/tour.model");
+app.locals.urlAdmin = `${variableConfig.urlAdmin}`;
 
-app.get("/", (req, res) => {
-  res.render("client/pages/home", {
-    pageTitle: "Trang chủ",
-  });
-});
-
-app.get("/tours", async (req, res) => {
-  //lấy ra list tour
-  const listTour = await Tour.find({});
-  console.log(listTour);
-
-  //trả về
-  res.render("client/pages/tour-list", {
-    pageTitle: "Danh sách tour",
-    tours: listTour,
-  });
-});
+// Mọi yêu cầu sẽ chạy từ câu lệnh 24 trước
+app.use(`/${variableConfig.urlAdmin}`, adminRoutes);
+app.use("/", clientRoutes);
 
 app.listen(port, () => {
   console.log(`Dự án đang chạy trên cổng ${port}`);
