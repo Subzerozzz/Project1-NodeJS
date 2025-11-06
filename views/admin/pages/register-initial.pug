@@ -1,0 +1,9 @@
+extends ../layouts/account.pug
+
+block main
+  .register-notification 
+    .register-notification-content
+      .register-notification-title Tạo tài khoản thành công 
+      .register-notification-action 
+        span Tài khoản của bạn đang chờ phê duyệt? 
+        a(href=`/${urlAdmin}/account/login`) Đăng nhập 

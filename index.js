@@ -23,6 +23,12 @@ app.set("views", path.join(__dirname, "views"));
 // Thiết lập thư mục tĩnh
 app.use(express.static(path.join(__dirname, "public")));
 
+//Cho phép gửi lên JSON
+app.use(express.json());
+
+//Cấu hình Toastify cho dự án
+app.use("/toastify-js", express.static(__dirname + "node_modules/toastify-js"));
+
 app.locals.urlAdmin = `${variableConfig.urlAdmin}`;
 
 // Mọi yêu cầu sẽ chạy từ câu lệnh 24 trước

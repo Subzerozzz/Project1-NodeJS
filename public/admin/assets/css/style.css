@@ -1582,3 +1582,22 @@ a {
   }
 }
 /* End Section 10 */
+
+/* Register notification  */
+.register-notification{
+  display: flex;
+  justify-content: center;
+}
+
+.register-notification-content{
+  background-color: white;
+  width: 500px;
+  padding: 30px 50px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.register-notification-action{
+  display: flex;
+  gap: 10px;
+}
