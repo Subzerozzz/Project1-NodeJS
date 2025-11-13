@@ -45,9 +45,28 @@ if (loginForm) {
       const password = event.target.password.value;
       const rememberPassword = event.target.rememberPassword.checked;
 
-      console.log(email);
-      console.log(password);
-      console.log(rememberPassword);
+      const dataFinal = {
+        email: email,
+        password: password,
+        rememberPassword: rememberPassword,
+      };
+
+      //call tới api
+      fetch(`/${pathAdmin}/account/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataFinal),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.code == "error") {
+            alert(data.message);
+          } else {
+            window.location.href = `/${pathAdmin}/dashboard`;
+          }
+        });
     });
 }
 // End Login Form
@@ -163,6 +182,26 @@ if (forgotPasswordForm) {
     .onSuccess((event) => {
       const email = event.target.email.value;
       console.log(email);
+
+      const dataFinal = {
+        email: email,
+      };
+
+      fetch(`/${pathAdmin}/account/forgot-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataFinal),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.code == "success") {
+            window.location.href = `/${pathAdmin}/account/otp-password`;
+          } else {
+            alert(data.message);
+          }
+        });
     });
 }
 // End Forgot Password Form
@@ -181,7 +220,24 @@ if (otpPasswordForm) {
     ])
     .onSuccess((event) => {
       const otp = event.target.otp.value;
-      console.log(otp);
+
+      const dataFinal = { otp: otp };
+
+      fetch(`/${pathAdmin}/account/otp-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataFinal),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.code == "success") {
+            window.location.href = `/${pathAdmin}/account/reset-password`;
+          } else {
+            alert(data.message);
+          }
+        });
     });
 }
 // End OTP Password Form
@@ -192,48 +248,67 @@ if (resetPasswordForm) {
   const validation = new JustValidate("#reset-password-form");
 
   validation
-    .addField("#password", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng nhập mật khẩu!",
-      },
-      {
-        validator: (value) => value.length >= 8,
-        errorMessage: "Mật khẩu phải chứa ít nhất 8 ký tự!",
-      },
-      {
-        validator: (value) => /[A-Z]/.test(value),
-        errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái in hoa!",
-      },
-      {
-        validator: (value) => /[a-z]/.test(value),
-        errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái thường!",
-      },
-      {
-        validator: (value) => /\d/.test(value),
-        errorMessage: "Mật khẩu phải chứa ít nhất một chữ số!",
-      },
-      {
-        validator: (value) => /[@$!%*?&]/.test(value),
-        errorMessage: "Mật khẩu phải chứa ít nhất một ký tự đặc biệt!",
-      },
-    ])
-    .addField("#confirm-password", [
-      {
-        rule: "required",
-        errorMessage: "Vui lòng xác nhận mật khẩu!",
-      },
-      {
-        validator: (value, fields) => {
-          const password = fields["#password"].elem.value;
-          return value == password;
-        },
-        errorMessage: "Mật khẩu xác nhận không khớp!",
-      },
-    ])
+    // .addField("#password", [
+    //   {
+    //     rule: "required",
+    //     errorMessage: "Vui lòng nhập mật khẩu!",
+    //   },
+    //   {
+    //     validator: (value) => value.length >= 8,
+    //     errorMessage: "Mật khẩu phải chứa ít nhất 8 ký tự!",
+    //   },
+    //   {
+    //     validator: (value) => /[A-Z]/.test(value),
+    //     errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái in hoa!",
+    //   },
+    //   {
+    //     validator: (value) => /[a-z]/.test(value),
+    //     errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái thường!",
+    //   },
+    //   {
+    //     validator: (value) => /\d/.test(value),
+    //     errorMessage: "Mật khẩu phải chứa ít nhất một chữ số!",
+    //   },
+    //   {
+    //     validator: (value) => /[@$!%*?&]/.test(value),
+    //     errorMessage: "Mật khẩu phải chứa ít nhất một ký tự đặc biệt!",
+    //   },
+    // ])
+    // .addField("#confirm-password", [
+    //   {
+    //     rule: "required",
+    //     errorMessage: "Vui lòng xác nhận mật khẩu!",
+    //   },
+    //   {
+    //     validator: (value, fields) => {
+    //       const password = fields["#password"].elem.value;
+    //       return value == password;
+    //     },
+    //     errorMessage: "Mật khẩu xác nhận không khớp!",
+    //   },
+    // ])
     .onSuccess((event) => {
-      const password = event.target.password.value;
-      console.log(password);
+      const newPassword = event.target.password.value;
+
+      const dataFinal = {
+        newPassword: newPassword,
+      };
+
+      fetch(`/${pathAdmin}/account/reset-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataFinal),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.code == "success") {
+            window.location.href = `/${pathAdmin}/account/login`;
+          } else {
+            alert(data.message);
+          }
+        });
     });
 }
 // End Reset Password Form

@@ -1,4 +1,6 @@
 const express = require("express");
+const cookieParser = require("cookie-parser");
+
 const path = require("path");
 require("dotenv").config();
 const database = require("./config/database");
@@ -26,8 +28,10 @@ app.use(express.static(path.join(__dirname, "public")));
 //Cho phép gửi lên JSON
 app.use(express.json());
 
-//Cấu hình Toastify cho dự án
-app.use("/toastify-js", express.static(__dirname + "node_modules/toastify-js"));
+//Cấu hình cho phép lấy ra cookie bên BE
+app.use(cookieParser());
+
+//Câu
 
 app.locals.urlAdmin = `${variableConfig.urlAdmin}`;
 
