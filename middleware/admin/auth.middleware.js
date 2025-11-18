@@ -18,6 +18,8 @@ module.exports.verifyToken = async (req, res, next) => {
       res.redirect(`/${urlAdmin}/account/login`);
       return;
     }
+    req.account = existAccount;
+    res.locals.account = existAccount;
     next();
   } catch (error) {
     res.redirect(`/${urlAdmin}/account/login`);

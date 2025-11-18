@@ -248,45 +248,45 @@ if (resetPasswordForm) {
   const validation = new JustValidate("#reset-password-form");
 
   validation
-    // .addField("#password", [
-    //   {
-    //     rule: "required",
-    //     errorMessage: "Vui lòng nhập mật khẩu!",
-    //   },
-    //   {
-    //     validator: (value) => value.length >= 8,
-    //     errorMessage: "Mật khẩu phải chứa ít nhất 8 ký tự!",
-    //   },
-    //   {
-    //     validator: (value) => /[A-Z]/.test(value),
-    //     errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái in hoa!",
-    //   },
-    //   {
-    //     validator: (value) => /[a-z]/.test(value),
-    //     errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái thường!",
-    //   },
-    //   {
-    //     validator: (value) => /\d/.test(value),
-    //     errorMessage: "Mật khẩu phải chứa ít nhất một chữ số!",
-    //   },
-    //   {
-    //     validator: (value) => /[@$!%*?&]/.test(value),
-    //     errorMessage: "Mật khẩu phải chứa ít nhất một ký tự đặc biệt!",
-    //   },
-    // ])
-    // .addField("#confirm-password", [
-    //   {
-    //     rule: "required",
-    //     errorMessage: "Vui lòng xác nhận mật khẩu!",
-    //   },
-    //   {
-    //     validator: (value, fields) => {
-    //       const password = fields["#password"].elem.value;
-    //       return value == password;
-    //     },
-    //     errorMessage: "Mật khẩu xác nhận không khớp!",
-    //   },
-    // ])
+    .addField("#password", [
+      {
+        rule: "required",
+        errorMessage: "Vui lòng nhập mật khẩu!",
+      },
+      {
+        validator: (value) => value.length >= 8,
+        errorMessage: "Mật khẩu phải chứa ít nhất 8 ký tự!",
+      },
+      {
+        validator: (value) => /[A-Z]/.test(value),
+        errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái in hoa!",
+      },
+      {
+        validator: (value) => /[a-z]/.test(value),
+        errorMessage: "Mật khẩu phải chứa ít nhất một chữ cái thường!",
+      },
+      {
+        validator: (value) => /\d/.test(value),
+        errorMessage: "Mật khẩu phải chứa ít nhất một chữ số!",
+      },
+      {
+        validator: (value) => /[@$!%*?&]/.test(value),
+        errorMessage: "Mật khẩu phải chứa ít nhất một ký tự đặc biệt!",
+      },
+    ])
+    .addField("#confirm-password", [
+      {
+        rule: "required",
+        errorMessage: "Vui lòng xác nhận mật khẩu!",
+      },
+      {
+        validator: (value, fields) => {
+          const password = fields["#password"].elem.value;
+          return value == password;
+        },
+        errorMessage: "Mật khẩu xác nhận không khớp!",
+      },
+    ])
     .onSuccess((event) => {
       const newPassword = event.target.password.value;
 
