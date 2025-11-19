@@ -65,14 +65,14 @@ block main
             tr
               td(class="inner-center")
                 input(type="checkbox" class="inner-check")
-              td #{item.parent == "" ? "Chưa có" : `Danh mục ${item.parent}`}
+              td #{item.nameParent == "" ? "Chưa có" : `${item.nameParent}`}
               td
                 img(src=item.avatar alt=item.name class="inner-avatar")
               td(class="inner-center") #{item.position}
               td(class="inner-center")
                 .badge.badge-green #{item.status == 'active' ? 'Hoạt động' : 'Dừng hoạt động'}
               td
-                div #{item.nameCreatedBy}
+                div #{item.nameCreatedBy} 
                 div.inner-time #{item.time} - #{item.date}
               td
                 div #{item.nameUpdatedBy}

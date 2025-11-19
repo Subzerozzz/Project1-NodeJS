@@ -1,0 +1,6 @@
+mixin optionCategory(categoryList, level)
+  each item in categoryList
+    option(value=item.id) #{"--".repeat(level)} #{item.name}
+    if(item.children.length > 0)
+      +optionCategory(item.children, level + 1)
+    

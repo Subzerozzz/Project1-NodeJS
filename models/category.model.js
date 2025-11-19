@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-(slug = require("mongoose-slug-generator")), mongoose.plugin(slug);
+(slug = require("mongoose-slug-updater")), mongoose.plugin(slug);
 
 const categorySchema = new mongoose.Schema(
   {
